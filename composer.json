@@ -14,6 +14,16 @@
             "dacoto\\SetEnv\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "dacoto\\SetEnv\\ServiceProvider"
+            ],
+            "aliases": {
+                "SetEnv": "dacoto\\SetEnv\\Facade"
+            }
+        }
+    },
     "license": "MIT",
     "authors": [
         {
