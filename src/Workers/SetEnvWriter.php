@@ -25,7 +25,7 @@ class SetEnvWriter implements \dacoto\SetEnv\Contracts\SetEnvWriter
     public function setBuffer($content)
     {
         if (!empty($content)) {
-            $content = rtrim($content).PHP_EOL;
+            $content = rtrim((string) $content).PHP_EOL;
         }
         $this->buffer = $content;
         return $this;

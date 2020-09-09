@@ -20,7 +20,7 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
      */
     public function formatSetterLine($key, $value = null, $comment = null, $export = false)
     {
-        $forceQuotes = ($comment !== '' && trim($value) === '');
+        $forceQuotes = ($comment !== '' && trim((string) $value) === '');
         $value = $this->formatValue($value, $forceQuotes);
         $key = $this->formatKey($key);
         $comment = $this->formatComment($comment);
@@ -57,7 +57,7 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
      */
     public function formatKey($key)
     {
-        return trim(str_replace(array('export ', '\'', '"', ' '), '', $key));
+        return trim((string) str_replace(array('export ', '\'', '"', ' '), '', $key));
     }
 
     /**
@@ -92,7 +92,7 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
             [$key, $data] = array_map('trim', explode('=', $line, 2));
             $export = $this->isExportKey($key);
             $key = $this->normaliseKey($key);
-            $data = trim($data);
+            $data = trim((string) $data);
 
             if (!$data && $data !== '0') {
                 $value = '';
@@ -152,7 +152,7 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
      */
     protected function isEmpty($line)
     {
-        return trim($line) === '';
+        return trim((string) $line) === '';
     }
 
     /**
@@ -164,7 +164,7 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
      */
     protected function isComment($line)
     {
-        return strpos(ltrim($line), '#') === 0;
+        return strpos(ltrim((string) $line), '#') === 0;
     }
 
     /**
@@ -176,7 +176,7 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
      */
     public function normaliseComment($comment)
     {
-        return trim($comment, '# ');
+        return trim((string) $comment, '# ');
     }
 
     /**
@@ -202,7 +202,7 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
     {
         $pattern = '/^export\h.*$/';
 
-        if (preg_match($pattern, trim($key))) {
+        if (preg_match($pattern, trim((string) $key))) {
             return true;
         }
 
@@ -244,7 +244,7 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
     public function normaliseValue($value, $quote = '')
     {
         if ($quote === '') {
-            return trim($value);
+            return trim((string) $value);
         }
 
         $value = str_replace(array("\\$quote", '\\\\'), array($quote, '\\'), $value);
