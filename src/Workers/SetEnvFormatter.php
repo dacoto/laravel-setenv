@@ -38,6 +38,10 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
      */
     public function formatValue($value, $forceQuotes = false)
     {
+        if (empty($value)) {
+            $value = '';
+        }
+
         if (!$forceQuotes && !preg_match('/[#\s"\'\\\\]|\\\\n/', (string) $value)) {
             return (string) $value;
         }
