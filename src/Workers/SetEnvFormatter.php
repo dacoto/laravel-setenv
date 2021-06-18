@@ -23,7 +23,7 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
         $forceQuotes = ($comment !== '' && trim((string) $value) === '');
         $value = (string) $this->formatValue((string) $value, $forceQuotes);
         $key = $this->formatKey($key);
-        $comment = $this->formatComment($comment);
+        $comment = $this->formatComment((string) $comment);
         $export = $export ? 'export ' : '';
         return "{$export}{$key}={$value}{$comment}";
     }
