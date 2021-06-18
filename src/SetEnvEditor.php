@@ -133,6 +133,7 @@ class SetEnvEditor
      */
     public function setKey($key, $value = null, $comment = null, $export = false): SetEnvEditor
     {
+        $value = (string) $value;
         $data = [compact('key', 'value', 'comment', 'export')];
         return $this->setKeys($data);
     }
@@ -159,12 +160,12 @@ class SetEnvEditor
                 $export = array_key_exists('export', $setter) ? $setter['export'] : false;
 
                 if (!is_file($this->filePath) || !$this->keyExists($key)) {
-                    $this->writer->appendSetter($key, $value, $comment, $export);
+                    $this->writer->appendSetter($key, (string) $value, $comment, $export);
                 } else {
                     $oldInfo = $this->getKeys([$key]);
                     $comment = is_null($comment) ? $oldInfo[$key]['comment'] : $comment;
 
-                    $this->writer->updateSetter($key, $value, $comment, $export);
+                    $this->writer->updateSetter($key, (string) $value, $comment, $export);
                 }
             }
         }

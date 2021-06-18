@@ -49,7 +49,7 @@ class SetEnvWriter implements \dacoto\SetEnv\Contracts\SetEnvWriter
 
     public function appendSetter(string $key, string $value = null, string $comment = null, bool $export = false): SetEnvWriter
     {
-        $line = $this->formatter->formatSetterLine($key, $value, $comment, $export);
+        $line = $this->formatter->formatSetterLine($key, (string) $value, $comment, $export);
 
         return $this->appendLine($line);
     }
@@ -57,7 +57,7 @@ class SetEnvWriter implements \dacoto\SetEnv\Contracts\SetEnvWriter
     public function updateSetter(string $key, string $value = null, string $comment = null, bool $export = false): SetEnvWriter
     {
         $pattern = "/^(export\h)?\h*{$key}=.*/m";
-        $line = $this->formatter->formatSetterLine($key, $value, $comment, $export);
+        $line = $this->formatter->formatSetterLine($key, (string) $value, $comment, $export);
         $this->buffer = preg_replace_callback($pattern, static function () use ($line) {
             return $line;
         }, $this->buffer);

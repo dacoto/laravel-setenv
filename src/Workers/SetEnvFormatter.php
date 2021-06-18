@@ -21,7 +21,7 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
     public function formatSetterLine(string $key, string $value = null, string $comment = null, bool $export = false): string
     {
         $forceQuotes = ($comment !== '' && trim((string) $value) === '');
-        $value = $this->formatValue($value, $forceQuotes);
+        $value = (string) $this->formatValue((string) $value, $forceQuotes);
         $key = $this->formatKey($key);
         $comment = $this->formatComment($comment);
         $export = $export ? 'export ' : '';
@@ -46,7 +46,7 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
             return (string) $value;
         }
 
-        $value = str_replace(array('\\', '"'), array('\\\\', '\"'), $value);
+        $value = (string) str_replace(array('\\', '"'), array('\\\\', '\"'), (string) $value);
         return "\"{$value}\"";
     }
 
@@ -120,18 +120,18 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
                     $quote
                 );
 
-                $value = preg_replace($regexPattern, '$1', $data);
+                $value = (string) preg_replace($regexPattern, '$1', $data);
                 $extant = preg_replace($regexPattern, '$2', $data);
 
-                $value = $this->normaliseValue($value, $quote);
+                $value = $this->normaliseValue((string) $value, $quote);
                 $comment = ($this->isComment($extant)) ? $this->normaliseComment($extant) : '';
             } else {
                 $parts = explode(' #', $data, 2);
-                $value = $this->normaliseValue($parts[0]);
+                $value = (string) $this->normaliseValue($parts[0]);
                 $comment = (isset($parts[1])) ? $this->normaliseComment($parts[1]) : '';
 
                 // Unquoted values cannot contain whitespace
-                if (preg_match('/\s+/', $value) > 0) {
+                if (preg_match('/\s+/', (string) $value) > 0) {
                     throw new InvalidValueException('Dotenv values containing spaces must be surrounded by quotes.');
                 }
             }
@@ -139,7 +139,7 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
             $output['type'] = 'setter';
             $output['export'] = $export;
             $output['key'] = $key;
-            $output['value'] = $value;
+            $output['value'] = (string) $value;
             $output['comment'] = $comment;
         } else {
             $output['type'] = 'unknown';
@@ -252,6 +252,6 @@ class SetEnvFormatter implements \dacoto\SetEnv\Contracts\SetEnvFormatter
             return trim((string) $value);
         }
 
-        return str_replace(array("\\$quote", '\\\\'), array($quote, '\\'), $value);
+        return (string) str_replace(array("\\$quote", '\\\\'), array($quote, '\\'), (string) $value);
     }
 }
