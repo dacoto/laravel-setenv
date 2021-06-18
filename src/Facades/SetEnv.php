@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Facade;
  *
  * @see \dacoto\SetEnv\SetEnv
  */
-class SetEnvFacade extends Facade
+class SetEnv extends Facade
 {
     protected static function getFacadeAccessor(): string
     {

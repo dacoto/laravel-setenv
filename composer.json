@@ -20,7 +20,7 @@
         "dacoto\\SetEnv\\ServiceProvider"
       ],
       "aliases": {
-        "SetEnv": "dacoto\\SetEnv\\Facade\\SetEnv"
+        "SetEnv": "dacoto\\SetEnv\\Facades\\SetEnv"
       }
     }
   },

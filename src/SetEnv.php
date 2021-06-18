@@ -102,7 +102,7 @@ class SetEnv
     {
         $allKeys = $this->reader->keys();
 
-        return array_filter($allKeys, static function ($key) use ($keys) {
+        return array_filter($allKeys, function ($key) use ($keys) {
             if (!empty($keys)) {
                 return in_array($key, $keys, true);
             }
