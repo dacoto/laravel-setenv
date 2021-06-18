@@ -11,7 +11,7 @@ interface SetEnvWriter
      *
      * @param  string  $content
      */
-    public function setBuffer($content);
+    public function setBuffer(string $content);
 
     /**
      * Return content in buffer
@@ -28,7 +28,7 @@ interface SetEnvWriter
      *
      * @param  string  $comment
      */
-    public function appendCommentLine($comment);
+    public function appendCommentLine(string $comment);
 
     /**
      * Append one setter to buffer
@@ -38,7 +38,7 @@ interface SetEnvWriter
      * @param  string|null  $comment
      * @param  boolean  $export
      */
-    public function appendSetter($key, $value = null, $comment = null, $export = false);
+    public function appendSetter(string $key, string $value = null, string $comment = null, bool $export = false);
 
     /**
      * Update one setter in buffer
@@ -48,7 +48,7 @@ interface SetEnvWriter
      * @param  string|null  $comment
      * @param  boolean  $export
      */
-    public function updateSetter($key, $value = null, $comment = null, $export = false);
+    public function updateSetter(string $key, string $value = null, string $comment = null, bool $export = false);
 
     /**
      * Delete one setter in buffer
@@ -57,12 +57,12 @@ interface SetEnvWriter
      *
      * @return object
      */
-    public function deleteSetter($key);
+    public function deleteSetter(string $key): object;
 
     /**
      * Save buffer to special file path
      *
      * @param  string  $filePath
      */
-    public function save($filePath);
+    public function save(string $filePath);
 }

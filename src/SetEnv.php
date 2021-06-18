@@ -12,15 +12,16 @@ use Illuminate\Contracts\Container\Container;
 
 class SetEnv
 {
-    private $app;
-    private $formatter;
-    private $reader;
-    private $writer;
+    private Container $app;
+    private SetEnvFormatter $formatter;
+    private SetEnvReader $reader;
+    private SetEnvWriter $writer;
     private $filePath;
 
     /**
      * SetEnv constructor.
      * @param  Container  $app
+     * @throws Exceptions\UnableReadFileException
      */
     public function __construct(Container $app)
     {
@@ -31,7 +32,10 @@ class SetEnv
         $this->load();
     }
 
-    public function load($filePath = null, $restoreIfNotFound = false, $restorePath = null)
+    /**
+     * @throws Exceptions\UnableReadFileException
+     */
+    public function load($filePath = null): SetEnv
     {
         $this->resetContent();
 
@@ -53,23 +57,33 @@ class SetEnv
         return $this;
     }
 
-    protected function resetContent()
+    protected function resetContent(): void
     {
         $this->filePath = null;
-        $this->reader->load(null);
-        $this->writer->setBuffer(null);
+        $this->reader->load((string) null);
+        $this->writer->setBuffer((string) null);
     }
 
+    /**
+     * @throws Exceptions\UnableReadFileException
+     */
     public function getContent()
     {
         return $this->reader->content();
     }
 
-    public function getLines()
+    /**
+     * @throws Exceptions\UnableReadFileException
+     */
+    public function getLines(): array
     {
         return $this->reader->lines();
     }
 
+    /**
+     * @throws KeyNotFoundException
+     * @throws Exceptions\UnableReadFileException
+     */
     public function getValue($key)
     {
         $allKeys = $this->getKeys([$key]);
@@ -81,11 +95,14 @@ class SetEnv
         throw new KeyNotFoundException('Requested key not found in your file.');
     }
 
-    public function getKeys($keys = [])
+    /**
+     * @throws Exceptions\UnableReadFileException
+     */
+    public function getKeys($keys = []): array
     {
         $allKeys = $this->reader->keys();
 
-        return array_filter($allKeys, function ($key) use ($keys) {
+        return array_filter($allKeys, static function ($key) use ($keys) {
             if (!empty($keys)) {
                 return in_array($key, $keys, true);
             }
@@ -99,25 +116,31 @@ class SetEnv
         return $this->writer->getBuffer();
     }
 
-    public function addEmpty()
+    public function addEmpty(): SetEnv
     {
         $this->writer->appendEmptyLine();
         return $this;
     }
 
-    public function addComment($comment)
+    public function addComment($comment): SetEnv
     {
         $this->writer->appendCommentLine($comment);
         return $this;
     }
 
-    public function setKey($key, $value = null, $comment = null, $export = false)
+    /**
+     * @throws Exceptions\UnableReadFileException
+     */
+    public function setKey($key, $value = null, $comment = null, $export = false): SetEnv
     {
         $data = [compact('key', 'value', 'comment', 'export')];
         return $this->setKeys($data);
     }
 
-    public function setKeys($data)
+    /**
+     * @throws Exceptions\UnableReadFileException
+     */
+    public function setKeys($data): SetEnv
     {
         foreach ($data as $i => $setter) {
             if (!is_array($setter)) {
@@ -148,20 +171,23 @@ class SetEnv
         return $this;
     }
 
-    public function keyExists($key)
+    /**
+     * @throws Exceptions\UnableReadFileException
+     */
+    public function keyExists($key): bool
     {
         $allKeys = $this->getKeys();
 
         return array_key_exists($key, $allKeys);
     }
 
-    public function deleteKey($key)
+    public function deleteKey($key): SetEnv
     {
         $keys = [$key];
         return $this->deleteKeys($keys);
     }
 
-    public function deleteKeys($keys = [])
+    public function deleteKeys($keys = []): SetEnv
     {
         foreach ($keys as $key) {
             $this->writer->deleteSetter($key);
@@ -169,7 +195,10 @@ class SetEnv
         return $this;
     }
 
-    public function save()
+    /**
+     * @throws Exceptions\UnableWriteToFileException
+     */
+    public function save(): SetEnv
     {
         $this->writer->save($this->filePath);
         return $this;

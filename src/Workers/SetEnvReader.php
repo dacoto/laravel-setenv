@@ -9,34 +9,43 @@ use dacoto\SetEnv\Exceptions\UnableReadFileException;
 
 class SetEnvReader implements \dacoto\SetEnv\Contracts\SetEnvReader
 {
-    protected $filePath;
-    protected $formatter;
+    protected string $filePath;
+    protected SetEnvFormatterContract $formatter;
 
     public function __construct(SetEnvFormatterContract $formatter)
     {
         $this->formatter = $formatter;
     }
 
-    public function load($filePath): SetEnvReader
+    public function load(string $filePath): SetEnvReader
     {
         $this->filePath = $filePath;
         return $this;
     }
 
+    /**
+     * @throws UnableReadFileException
+     */
     public function content()
     {
         $this->ensureFileIsReadable();
         return file_get_contents($this->filePath);
     }
 
-    protected function ensureFileIsReadable()
+    /**
+     * @throws UnableReadFileException
+     */
+    protected function ensureFileIsReadable(): void
     {
         if (!is_readable($this->filePath) || !is_file($this->filePath)) {
             throw new UnableReadFileException(sprintf('Unable to read the file at %s.', $this->filePath));
         }
     }
 
-    public function lines()
+    /**
+     * @throws UnableReadFileException
+     */
+    public function lines(): array
     {
         $content = [];
         $lines = $this->readLinesFromFile();
@@ -54,6 +63,9 @@ class SetEnvReader implements \dacoto\SetEnv\Contracts\SetEnvReader
         return $content;
     }
 
+    /**
+     * @throws UnableReadFileException
+     */
     protected function readLinesFromFile()
     {
         $this->ensureFileIsReadable();
@@ -66,7 +78,10 @@ class SetEnvReader implements \dacoto\SetEnv\Contracts\SetEnvReader
         return $lines;
     }
 
-    public function keys()
+    /**
+     * @throws UnableReadFileException
+     */
+    public function keys(): array
     {
         $content = [];
         $lines = $this->readLinesFromFile();

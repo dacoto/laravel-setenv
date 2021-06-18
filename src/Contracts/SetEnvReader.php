@@ -11,7 +11,7 @@ interface SetEnvReader
      *
      * @param  string  $filePath
      */
-    public function load($filePath);
+    public function load(string $filePath);
 
     /**
      * Get content of .env file
@@ -19,12 +19,12 @@ interface SetEnvReader
     public function content();
 
     /**
-     * Get all lines informations from content of .env file
+     * Get all lines information's from content of .env file
      */
     public function lines();
 
     /**
-     * Get all key informations in .env file
+     * Get all key information's in .env file
      */
     public function keys();
 }
