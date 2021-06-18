@@ -65,7 +65,7 @@ class SetEnvWriter implements \dacoto\SetEnv\Contracts\SetEnvWriter
         return $this;
     }
 
-    public function deleteSetter(string $key)
+    public function deleteSetter(string $key): object
     {
         $pattern = "/^(export\h)?\h*{$key}=.*\n/m";
         $this->buffer = preg_replace($pattern, '', $this->buffer);

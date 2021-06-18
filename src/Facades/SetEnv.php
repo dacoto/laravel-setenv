@@ -29,6 +29,6 @@ class SetEnv extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return SetEnv::class;
+        return SetEnvEditor::class;
     }
 }
