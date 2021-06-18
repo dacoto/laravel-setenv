@@ -10,7 +10,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
 {
     public function register(): void
     {
-        $this->app->bind('setenv', SetEnv::class);
+        $this->app->bind('setenv', SetEnvEditor::class);
     }
 
     public function provides(): array

@@ -10,7 +10,7 @@ use dacoto\SetEnv\Workers\SetEnvReader;
 use dacoto\SetEnv\Workers\SetEnvWriter;
 use Illuminate\Contracts\Container\Container;
 
-class SetEnv
+class SetEnvEditor
 {
     private Container $app;
     private SetEnvFormatter $formatter;
@@ -19,7 +19,7 @@ class SetEnv
     private $filePath;
 
     /**
-     * SetEnv constructor.
+     * SetEnvEditor constructor.
      * @param  Container  $app
      * @throws Exceptions\UnableReadFileException
      */
@@ -35,7 +35,7 @@ class SetEnv
     /**
      * @throws Exceptions\UnableReadFileException
      */
-    public function load($filePath = null): SetEnv
+    public function load($filePath = null): SetEnvEditor
     {
         $this->resetContent();
 
@@ -116,13 +116,13 @@ class SetEnv
         return $this->writer->getBuffer();
     }
 
-    public function addEmpty(): SetEnv
+    public function addEmpty(): SetEnvEditor
     {
         $this->writer->appendEmptyLine();
         return $this;
     }
 
-    public function addComment($comment): SetEnv
+    public function addComment($comment): SetEnvEditor
     {
         $this->writer->appendCommentLine($comment);
         return $this;
@@ -131,7 +131,7 @@ class SetEnv
     /**
      * @throws Exceptions\UnableReadFileException
      */
-    public function setKey($key, $value = null, $comment = null, $export = false): SetEnv
+    public function setKey($key, $value = null, $comment = null, $export = false): SetEnvEditor
     {
         $data = [compact('key', 'value', 'comment', 'export')];
         return $this->setKeys($data);
@@ -140,7 +140,7 @@ class SetEnv
     /**
      * @throws Exceptions\UnableReadFileException
      */
-    public function setKeys($data): SetEnv
+    public function setKeys($data): SetEnvEditor
     {
         foreach ($data as $i => $setter) {
             if (!is_array($setter)) {
@@ -181,13 +181,13 @@ class SetEnv
         return array_key_exists($key, $allKeys);
     }
 
-    public function deleteKey($key): SetEnv
+    public function deleteKey($key): SetEnvEditor
     {
         $keys = [$key];
         return $this->deleteKeys($keys);
     }
 
-    public function deleteKeys($keys = []): SetEnv
+    public function deleteKeys($keys = []): SetEnvEditor
     {
         foreach ($keys as $key) {
             $this->writer->deleteSetter($key);
@@ -198,7 +198,7 @@ class SetEnv
     /**
      * @throws Exceptions\UnableWriteToFileException
      */
-    public function save(): SetEnv
+    public function save(): SetEnvEditor
     {
         $this->writer->save($this->filePath);
         return $this;

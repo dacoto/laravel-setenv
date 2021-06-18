@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace dacoto\SetEnv\Facades;
 
-use dacoto\SetEnv\SetEnv;
+use dacoto\SetEnv\SetEnvEditor;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static load($filePath = null): SetEnv
+ * @method static load($filePath = null): SetEnvEditor
  * @method static getContent()
  * @method static getLines(): array
  * @method static getValue($key)
  * @method static getKeys($keys = []): array
  * @method static getBuffer()
- * @method static addEmpty(): SetEnv
- * @method static addComment($comment): SetEnv
- * @method static setKey($key, $value = null, $comment = null, $export = false): SetEnv
- * @method static setKeys($data): SetEnv
+ * @method static addEmpty(): SetEnvEditor
+ * @method static addComment($comment): SetEnvEditor
+ * @method static setKey($key, $value = null, $comment = null, $export = false): SetEnvEditor
+ * @method static setKeys($data): SetEnvEditor
  * @method static keyExists($key): bool
- * @method static deleteKey($key): SetEnv
- * @method static deleteKeys($keys = []): SetEnv
- * @method static save(): SetEnv
+ * @method static deleteKey($key): SetEnvEditor
+ * @method static deleteKeys($keys = []): SetEnvEditor
+ * @method static save(): SetEnvEditor
  *
- * @see \dacoto\SetEnv\SetEnv
+ * @see \dacoto\SetEnv\SetEnvEditor
  */
 class SetEnv extends Facade
 {
