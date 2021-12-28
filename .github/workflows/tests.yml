@@ -14,7 +14,6 @@ jobs:
       matrix:
         php: [ 7.4, 8.0, 8.1 ]
         laravel: [ ^7.0, ^8.0 ]
-        composerFlags: [ '--prefer-lowest', '' ]
         exclude:
           - php: 7.4
             laravel: ^8.0
@@ -23,7 +22,7 @@ jobs:
           - php: 8.1
             laravel: ^7.0
 
-    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} ${{ matrix.composerFlags }}
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -39,10 +38,11 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "laravel/framework=${{ matrix.laravel }}" --no-update
-          composer update --prefer-dist --no-interaction --no-progress ${{ matrix.composerFlags }}
+          composer update --prefer-dist --no-interaction --no-progress
+
       - name: Set Minimum PHP 8.1 Versions
         run: composer require phpunit/phpunit:^9.5.8 --dev --with-all-dependencies --prefer-dist --no-interaction --no-progress --prefer-lowest
-        if: matrix.php == 8.1 && matrix.composerFlags == '--prefer-lowest'
+        if: matrix.php == 8.1
 
       - name: Execute tests
         run: vendor/bin/phpunit --verbose --coverage-text
