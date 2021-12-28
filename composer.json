@@ -1,34 +1,40 @@
 {
-  "name": "dacoto/laravel-setenv",
-  "description": "A .env editor for Laravel",
-  "type": "library",
-  "require": {
-    "php": "^7.4|^8.0",
-    "laravel/framework": "^7.0|^8.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9.3"
-  },
-  "autoload": {
-    "psr-4": {
-      "dacoto\\SetEnv\\": "src/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "dacoto\\SetEnv\\ServiceProvider"
-      ],
-      "aliases": {
-        "SetEnv": "dacoto\\SetEnv\\Facades\\SetEnv"
-      }
-    }
-  },
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "David Cortés",
-      "email": "cortestoledanodavid@gmail.com"
-    }
-  ]
+    "name": "dacoto/laravel-setenv",
+    "description": "A .env editor for Laravel",
+    "type": "library",
+    "require": {
+        "php": "^7.4|^8.0",
+        "laravel/framework": "^7.0|^8.0|^9.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.3",
+        "orchestra/testbench": "^6.23"
+    },
+    "autoload": {
+        "psr-4": {
+            "dacoto\\SetEnv\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "dacoto\\SetEnv\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "dacoto\\SetEnv\\SetEnvServiceProvider"
+            ],
+            "aliases": {
+                "SetEnv": "dacoto\\SetEnv\\Facades\\SetEnv"
+            }
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Cortés",
+            "email": "cortestoledanodavid@gmail.com"
+        }
+    ]
 }
