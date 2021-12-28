@@ -2,6 +2,13 @@
     "name": "dacoto/laravel-setenv",
     "description": "A .env editor for Laravel",
     "type": "library",
+    "homepage": "https://dacoto.github.io/laravel-setenv/",
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/dacoto97"
+        }
+    ],
     "require": {
         "php": "^7.4|^8.0",
         "laravel/framework": "^7.0|^8.74|^9.0"
