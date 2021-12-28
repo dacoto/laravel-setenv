@@ -17,11 +17,6 @@ class SetEnvWriter implements \dacoto\SetEnv\Contracts\SetEnvWriter
         $this->formatter = $formatter;
     }
 
-    public function getBuffer()
-    {
-        return $this->buffer;
-    }
-
     public function setBuffer(string $content): SetEnvWriter
     {
         if (!empty($content)) {

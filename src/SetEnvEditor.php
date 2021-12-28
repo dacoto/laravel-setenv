@@ -111,11 +111,6 @@ class SetEnvEditor
         }, ARRAY_FILTER_USE_KEY);
     }
 
-    public function getBuffer()
-    {
-        return $this->writer->getBuffer();
-    }
-
     public function addEmpty(): SetEnvEditor
     {
         $this->writer->appendEmptyLine();

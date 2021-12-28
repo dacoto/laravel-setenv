@@ -14,11 +14,6 @@ interface SetEnvWriter
     public function setBuffer(string $content);
 
     /**
-     * Return content in buffer
-     */
-    public function getBuffer();
-
-    /**
      * Append empty line to buffer
      */
     public function appendEmptyLine();

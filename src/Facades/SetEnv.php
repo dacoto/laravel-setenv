@@ -8,22 +8,32 @@ use dacoto\SetEnv\SetEnvEditor;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static load($filePath = null): SetEnvEditor
- * @method static getContent()
- * @method static getLines(): array
- * @method static getValue($key)
- * @method static getKeys($keys = []): array
- * @method static getBuffer()
- * @method static addEmpty(): SetEnvEditor
- * @method static addComment($comment): SetEnvEditor
- * @method static setKey($key, $value = null, $comment = null, $export = false): SetEnvEditor
- * @method static setKeys($data): SetEnvEditor
- * @method static keyExists($key): bool
- * @method static deleteKey($key): SetEnvEditor
- * @method static deleteKeys($keys = []): SetEnvEditor
- * @method static save(): SetEnvEditor
- *
- * @see \dacoto\SetEnv\SetEnvEditor
+ * @see \dacoto\SetEnv\SetEnvEditor::addEmpty
+ * @method static SetEnvEditor addEmpty()
+ * @see \dacoto\SetEnv\SetEnvEditor::deleteKeys
+ * @method static SetEnvEditor deleteKeys($keys = [])
+ * @see \dacoto\SetEnv\SetEnvEditor::save
+ * @method static SetEnvEditor save()
+ * @see \dacoto\SetEnv\SetEnvEditor::getContent
+ * @method static false|string getContent()
+ * @see \dacoto\SetEnv\SetEnvEditor::getLines
+ * @method static array getLines()
+ * @see \dacoto\SetEnv\SetEnvEditor::deleteKey
+ * @method static SetEnvEditor deleteKey($key)
+ * @see \dacoto\SetEnv\SetEnvEditor::setKeys
+ * @method static SetEnvEditor setKeys($data)
+ * @see \dacoto\SetEnv\SetEnvEditor::keyExists
+ * @method static bool keyExists($key)
+ * @see \dacoto\SetEnv\SetEnvEditor::load
+ * @method static SetEnvEditor load($filePath = null)
+ * @see \dacoto\SetEnv\SetEnvEditor::addComment
+ * @method static SetEnvEditor addComment($comment)
+ * @see \dacoto\SetEnv\SetEnvEditor::getValue
+ * @method static mixed getValue($key)
+ * @see \dacoto\SetEnv\SetEnvEditor::getKeys
+ * @method static array getKeys($keys = [])
+ * @see \dacoto\SetEnv\SetEnvEditor::setKey
+ * @method static SetEnvEditor setKey($key, $value = null, $comment = null, $export = false)
  */
 class SetEnv extends Facade
 {
